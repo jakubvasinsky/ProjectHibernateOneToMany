@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class DeleteSingerAndSongDemo {
+public class CreateSongDemo {
     public static void main(String[] args) {
         SessionFactory sessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml")
@@ -20,10 +20,17 @@ public class DeleteSingerAndSongDemo {
         try{
             session.beginTransaction();
 
-            int id = 10;
-            Song tempSong = session.get(Song.class, id);
+            int id = 1;
+            Singer singer = session.get(Singer.class, id);
 
-            session.delete(tempSong);
+            Song song1 = new Song("ZuvackaZaUchom");
+            Song song2 = new Song("Edo");
+
+            singer.add(song1);
+            singer.add(song2);
+
+            session.save(song1);
+            session.save(song2);
 
             session.getTransaction().commit();
             System.out.println("Done!");
